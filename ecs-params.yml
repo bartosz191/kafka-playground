@@ -1,0 +1,33 @@
+version: 1
+task_definition:
+  services:
+    elasticsearch:
+      essential: false
+      init_process_enabled: true
+      cpu_shares: 256
+      mem_reservation: 1024M
+    zookeeper:
+      essential: false
+      init_process_enabled: true
+      cpu_shares: 128
+      mem_reservation: 256M
+    kafka:
+      essential: false
+      init_process_enabled: true
+      cpu_shares: 256
+      mem_reservation: 512M
+    logstash-producer:
+      essential: false
+      cpu_shares: 256
+      mem_reservation: 1G
+    logstash-consumer:
+      essential: false
+      cpu_shares: 256
+      mem_reservation: 1G
+    kibana:
+      essential: true
+      init_process_enabled: true
+      cpu_shares: 256
+      mem_reservation: 512M
+      
+      

@@ -1,5 +1,4 @@
-version: '3.7'
-
+version: '3.0'
 services:
   zookeeper:
     image: zookeeper:3.4.9
@@ -24,7 +23,7 @@ services:
       KAFKA_BROKER_ID: 1
       KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-    depends_on:
+    links:
       - zookeeper
 
   elasticsearch:
@@ -38,7 +37,7 @@ services:
       - bootstrap.memory_lock=true
       - http.cors.enabled=true
       - http.cors.allow-origin=*
-      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
       memlock:
         soft: -1
@@ -49,21 +48,23 @@ services:
     hostname: kibana
     ports:
       - 5601:5601
-    depends_on:
+    links:
       - elasticsearch
 
   logstash-producer:
-    image: docker.elastic.co/logstash/logstash:7.3.1
+    image: 047384126872.dkr.ecr.eu-west-2.amazonaws.com/logstash_producer:latest
     hostname: logstash-producer
     volumes:
       - ./logstash-producer/:/usr/share/logstash/pipeline/
-    depends_on:
+    links:
       - kafka
+      - elasticsearch
 
   logstash-consumer:
-    image: docker.elastic.co/logstash/logstash:7.3.1
+    image: 047384126872.dkr.ecr.eu-west-2.amazonaws.com/logstash_consumer:latest
     hostname: logstash-consumer
     volumes:
       - ./logstash-consumer/:/usr/share/logstash/pipeline/
-    depends_on:
+    links:
       - elasticsearch
+      - kafka
