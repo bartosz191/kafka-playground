@@ -52,7 +52,7 @@ services:
       - elasticsearch
 
   logstash-producer:
-    image: 047384126872.dkr.ecr.eu-west-2.amazonaws.com/logstash_producer:latest
+    image: 111111222222.dkr.ecr.eu-west-2.amazonaws.com/logstash_producer:latest
     hostname: logstash-producer
     volumes:
       - ./logstash-producer/:/usr/share/logstash/pipeline/
@@ -61,7 +61,7 @@ services:
       - elasticsearch
 
   logstash-consumer:
-    image: 047384126872.dkr.ecr.eu-west-2.amazonaws.com/logstash_consumer:latest
+    image: 111111222222.dkr.ecr.eu-west-2.amazonaws.com/logstash_consumer:latest
     hostname: logstash-consumer
     volumes:
       - ./logstash-consumer/:/usr/share/logstash/pipeline/
