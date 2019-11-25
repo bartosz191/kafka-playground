@@ -4,38 +4,21 @@ task_definition:
     elasticsearch:
       essential: false
       init_process_enabled: true
-      cpu_shares: 256
+      cpu_shares: 1024
       mem_reservation: 1024M
-    zookeeper:
-      essential: false
-      init_process_enabled: true
-      cpu_shares: 128
-      mem_reservation: 256M
-    kafka:
-      essential: false
-      init_process_enabled: true
-      cpu_shares: 256
-      mem_reservation: 256M
-    logstash-producer:
-      essential: false
-      cpu_shares: 256
-      mem_reservation: 756M
-      init_process_enabled: true
-    logstash-consumer:
-      essential: false
-      cpu_shares: 256
-      mem_reservation: 756M
-      init_process_enabled: true
-      dependsOn:
-        containerName: elasticsearch
-        condition: START
     kibana:
       essential: true
       init_process_enabled: true
-      cpu_shares: 256
+      cpu_shares: 1024
       mem_reservation: 512M
       dependsOn:
         containerName: elasticsearch
         condition: START
-      
-      
+    logstash-producer:
+      essential: false
+      cpu_shares: 1
+      mem_reservation: 1024M
+      init_process_enabled: true
+      dependsOn:
+        containerName: elasticsearch
+        condition: START

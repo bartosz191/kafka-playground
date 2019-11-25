@@ -1,31 +1,5 @@
 version: '3.0'
 services:
-  zookeeper:
-    image: zookeeper:3.4.9
-    hostname: zookeeper
-    ports:
-      - "2181:2181"
-    environment:
-        ZOO_MY_ID: 1
-        ZOO_PORT: 2181
-        ZOO_SERVERS: server.1=zookeeper:2888:3888
-
-  kafka:
-    image: confluentinc/cp-kafka:5.3.0
-    hostname: kafka
-    ports:
-      - "9092:9092"
-    environment:
-      KAFKA_ADVERTISED_LISTENERS: LISTENER://kafka:9092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER:PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER
-      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
-      KAFKA_BROKER_ID: 1
-      KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-    links:
-      - zookeeper
-
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.8.0
     hostname: elasticsearch
@@ -52,15 +26,15 @@ services:
       - elasticsearch
 
   logstash-producer:
-    image: 11111111111.dkr.ecr.eu-west-2.amazonaws.com/logstash_producer:latest
+    image: 00000000000.dkr.ecr.eu-west-2.amazonaws.com/logstash_producer:latest
     hostname: logstash-producer
-    links:
-      - kafka
-      - elasticsearch
+    environment:
+      LOG_LEVEL: error
 
   logstash-consumer:
-    image: 11111111111.dkr.ecr.eu-west-2.amazonaws.com/logstash_consumer:latest
+    image: 00000000000.dkr.ecr.eu-west-2.amazonaws.com/logstash_consumer:latest
     hostname: logstash-consumer
+    environment:
+      LOG_LEVEL: error
     links:
       - elasticsearch
-      - kafka
