@@ -18,7 +18,10 @@ task_definition:
       essential: false
       cpu_shares: 1
       mem_reservation: 1024M
-      init_process_enabled: true
+    logstash-consumer:
+      essential: false
+      cpu_shares: 1024
+      mem_reservation: 1024M
       dependsOn:
         containerName: elasticsearch
         condition: START

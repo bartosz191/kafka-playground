@@ -16,7 +16,6 @@ services:
       memlock:
         soft: -1
         hard: -1
-
   kibana:
     image: docker.elastic.co/kibana/kibana:6.8.0
     hostname: kibana
@@ -24,15 +23,13 @@ services:
       - 5601:5601
     links:
       - elasticsearch
-
   logstash-producer:
-    image: 00000000000.dkr.ecr.eu-west-2.amazonaws.com/logstash_producer:latest
+    image: 1111111111.dkr.ecr.eu-west-2.amazonaws.com/logstash_producer:latest
     hostname: logstash-producer
     environment:
       LOG_LEVEL: error
-
   logstash-consumer:
-    image: 00000000000.dkr.ecr.eu-west-2.amazonaws.com/logstash_consumer:latest
+    image: 11111111111.dkr.ecr.eu-west-2.amazonaws.com/logstash_consumer:latest
     hostname: logstash-consumer
     environment:
       LOG_LEVEL: error
